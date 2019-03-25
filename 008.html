@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<title>Задание 8</title>
+</head>
+
+<body>
+	<p>Проверить, какие нечетные натуральные числа из интервала N..M можно представить в виде суммы трех простых чисел.</p>
+	<form id="form1">
+		<input id="start" type="number">
+		<input id="stop" type="number">
+		<button onclick="return three_simple()">OK</button>
+	</form>
+	
+	<script>
+		function three_simple()
+		{
+			function simple(number)
+			{
+				for (var i = 2; i < number; i++)
+					{
+						if (number % i == 0)
+							{
+								return false;
+							}
+					}
+				return true;	
+			}
+			
+			var start = Number(document.getElementById("start").value);
+			var stop = Number(document.getElementById("stop").value);
+			var output = [];
+			var odd = [];
+			var sim = [];
+			var result;
+			var sum;
+			
+			if ((!(start & stop))||(start <=0) || (stop <= 0))
+				{
+					alert("insert correct data!");	
+					return;
+				}
+			if (stop < start)
+			{
+				var variable = start;
+				start = stop;
+				stop = variable;
+			}
+
+			for (i = start; i <= stop; i++)
+			{
+				if (i % 2 == 1)
+				{
+					odd.push(i);
+				}
+			}
+			
+			for (i = 3; i < stop; i ++) //уменьшить количество проверок за счет нечетности?
+			{
+				if (simple(i) == true)
+				{
+					sim.push(i);
+				}
+			}
+
+			for (i = 0; i < sim.length; i++)
+			{
+				for (j = 0; j < sim.length; j++)
+				{
+					for (k = 0; k < sim.length; k++)
+					{
+						sum = sim[i] + sim[j] + sim[k];
+						if (odd.includes(sum) && (!(output.includes(sum))))
+						{
+							output.push(sum);
+						}
+					}
+				}
+			}
+
+			alert(output.sort(function(a, b) {return a - b;}));
+		}
+	</script>
+	<a href="index.html">Назад</a>
+</body>
+</html>

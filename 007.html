@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<title>Задание 7</title>
+</head>
+
+<body>
+	<p>Натуральное число называется совершенным, если оно равно сумме всех 
+своих делителей, включая единицу. Вывести первые N (N&lt;5) совершенных 
+чисел на экран.</p>
+	<form id="form1">
+		<input id="a" type="number">
+		<button onclick="return simple()">OK</button>
+	</form>
+	
+	<script>
+		function simple()
+		{
+			function divide(number)
+			{
+				var lst = [];
+				for (var i = 1; i < number; i++)
+				{
+					if (number % i == 0)
+					{
+						if (!(i in lst))
+						{lst.push(i)}
+					}
+				}
+				return lst;
+			}
+			
+			function add(sum, current) 
+			{return sum + current;}
+			
+			var input = Number(document.getElementById("a").value);
+			if ((!(input))||(input <= 0))
+				{
+					alert("Insert correct data!");
+					return;
+				}
+			if (input < 5)
+			{
+				output = [];
+				counter = 2;
+				while (output.length < input)
+				{
+					var result = divide(counter);
+					result = Number(result.reduce(add));
+					if (result == counter)
+					{
+						output.push(counter);
+					}
+					counter++;
+				}
+				alert(output);
+			}
+		}
+		
+	</script>
+	<a href="index.html">Назад</a>
+</body>
+</html>

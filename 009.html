@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<title>Задание 9</title>
+</head>
+	
+<body>
+	<p>Проверить, будет ли данное число числом Фибоначчи.</p>
+	<form id="form1">
+		<input id="a" type="number">
+		<button onclick="return fibonacci()">OK</button>
+	</form>
+	
+	<script>
+		function fibonacci()
+		{
+			var input = Number(document.getElementById("a").value);
+			var fib_1 = 1;
+			var fib_2 = 1;
+			var sum = 0;
+			if (sum < input)
+			{
+				while (sum < input)
+				{
+					var sum = fib_1 + fib_2;
+					fib_1 = fib_2;
+					fib_2 = sum;
+				}
+				if (sum == input)
+					{
+						alert("Number is IN Fibonacci sequence")
+					}
+				else
+					{
+						alert("Number is NOT IN Fibonacci sequence")
+					}
+			}
+			else
+			{
+				alert("Wrong number!")
+				return;
+			}
+		}
+		
+	</script>
+	<a href="index.html">Назад</a>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<title>Задание 11</title>
+</head>
+
+<body>
+	<p>Найти все различные пифагоровы тройки из интервала от N до М.</p>
+	<form id="form1">
+		<input id="start" type="number">
+		<input id="stop" type="number">
+		<button onclick="return pythagor()">OK</button>
+	</form>
+	
+	<script>
+		function pythagor()
+		{
+			function check_for_doubles(x, y, z)
+			{
+				var checker;
+				
+				for (var a = 0; a < output.length; a++)
+					{
+						checker = 0;
+						for (var b = 0; b < output[a].length; b++)
+							{
+								if ((output[a][b] == x) || (output[a][b] == y) || (output[a][b] == z))
+									{
+										checker++;
+									}
+							}
+						if (checker == 3)
+							{
+								return false;
+							}
+					}
+				return true;
+			}
+			
+			
+			var start = Number(document.getElementById("start").value);
+			var stop = Number(document.getElementById("stop").value);
+			var output = [];
+			var output_string = "";
+			
+			if ((stop <= 0) || (start <= 0))
+				{
+					alert("Wrong numbers!");
+					return;
+				}
+			
+			if (stop < start)
+				{
+					var variable = start;
+					start = stop;
+					stop = variable;
+				}
+			
+			for (var i = start; i <= stop; i++)
+				{
+					for (var j = start; j <= stop; j++)
+						{
+							for (var k = start; k <= stop; k++)
+								{
+									if (((i*i) + (j*j) == k*k) && (check_for_doubles(i,j,k)))
+										{
+											output.push([i,j,k]);
+										}
+								}
+						}
+				}
+			
+			
+			for (i = 0; i < output.length; i++)
+				{
+					output_string += "{"+String(output[i][0])+" "+String(output[i][1])+" "+String(output[i][2])+"} ";
+				}
+			alert(output_string);
+
+		}
+		
+	</script>
+	<a href="index.html">Назад</a>
+</body>
+</html>

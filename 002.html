@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<title>Задание 2</title>
+</head>
+
+<body>
+	<p>Составить программу, проверяющую, будет ли простым данное натуральное число.</p>
+	<form id="form1">
+		<input id="a" type="number">
+		<button onclick="return simple()">OK</button>
+	</form>
+	
+	<script>
+		function simple()
+		{
+			var a = Number(document.getElementById("a").value);
+			var res = "simple";
+			if (a == "")
+				{
+					alert("Insert data!");
+					return;
+				}
+			for (var i = 2; i < a; i++)
+				{
+					if (a % i == 0)
+						{
+							res = "not simple";
+							break;
+						}
+				}
+			alert(res);	
+		}
+		
+	</script>
+	<a href="index.html">Назад</a>
+</body>
+</html>

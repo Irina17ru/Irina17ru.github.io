@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<title>Задание 3</title>
+</head>
+
+<body>
+	<p>Напишите программу, которая выводит на экран все простые числа из интервала 1..N, используя решето Эратосфена.</p>
+	<form id="form1">
+		<input id="a" type="number" placeholder="Я неправильно работаю" style="width: 200px;">
+		<button onclick="return" style=" background-color: #E93336; border-color: #E93336;">:(</button>
+	</form>
+	
+	<script>
+		function simple()
+		{
+			var a = Number(document.getElementById("a").value);
+			var res = [];
+			for (var n = 1; n <= a; n++)
+				{
+					res.push(n);
+				}
+			
+			for (var i = 2; i < a; i++)
+				{
+				 for (var j = 2*i; j < a; j + i)
+					 {
+						 res[j] = 0;
+					 }
+				}
+			
+			var fin_res = [];
+			for (var n = 0; n < a; n++)
+				{
+					if (res[n] != 0)
+						{
+							fin_res.push(res[n]);
+						}
+				}
+			alert(fin_res);
+		}
+
+	</script>
+	<a href="index.html">Назад</a>
+</body>
+</html>

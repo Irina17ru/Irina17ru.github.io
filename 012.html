@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<title>Задание 12</title>
+</head>
+
+<body>
+	<p>Написать программу умножения (деления) двух данных рациональных чисел. Ответ должен быть несократимой дробью.</p>
+	<form class="another">
+	<table>
+	<tr>
+		<td>
+		<input id="a" type="number">
+		<br/>
+		<input id="b" type="number">
+		</td>
+		
+		<td>
+		<select id="s" name ="select">
+			<option>*</option>
+			<option>/</option>
+		</select>
+		</td>
+		
+		<td>
+		<input id="c" type="number">
+		<br/>
+		<input id="d" type="number">
+		</td>
+	</tr>
+	</table>
+	<br>
+	<button onclick="return rational()">OK</button>
+	</form>
+	
+	<script>
+		function rational()
+		{
+			function div(input)
+				{
+					var fin = [];
+					var i = 2;
+					while (input != 1)
+					{
+						if (input % i == 0)
+						{
+							fin.push(i);
+							input = input/i;
+							i = 2;
+						}
+						else
+						{
+							i++;
+						}
+					}
+					return fin;
+				}
+		
+			function add(mul, current)
+			{return mul * current;}
+			
+			
+			var top_1 = Number(document.getElementById("a").value);
+			var bot_1 = Number(document.getElementById("b").value);
+			var top_2 = Number(document.getElementById("c").value);
+			var bot_2 = Number(document.getElementById("d").value);
+			var sign = String(document.getElementById("s").value);
+			var output = "";
+			var top_out;
+			var bot_out;
+			var top_div;
+			var bot_div;
+			
+			if ((!(top_1)) || (!(top_2)) || (!(bot_1)) || (!(bot_2))||(bot_1 == 0)||(bot_2 == 0))
+			{
+				alert ("insert correct data!");
+				return;
+			}
+			
+			switch(sign)
+				{
+					case "/": 
+						top_out = top_1*bot_2;
+						bot_out = bot_1*top_2;
+						break;
+						
+					case "*":
+						top_out = top_1*top_2;
+						bot_out = bot_1*bot_2;
+						break;
+						
+					default:
+						break;
+				}
+			
+			while (true)
+				{
+					top_div = div(top_out);
+					bot_div = div(bot_out);
+					nod = top_div.filter(value => -1 !== bot_div.indexOf(value));
+					if (nod.length == 0)
+						{
+							break;
+						}
+					nod = nod.reduce(add);
+					top_out /=nod;
+					bot_out /=nod;
+				}
+			output = top_out + "/" + bot_out;
+			alert(output);
+			
+		}
+		
+	</script>
+	<a href="index.html">Назад</a>
+</body>
+</html>

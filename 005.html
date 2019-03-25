@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<title>Задание 5</title>
+</head>
+
+<body>
+	<p>Найти все делители натурального числа N.</p>
+	<form id="form1">
+		<input id="a" type="number">
+		<button onclick="return divide()">OK</button>
+	</form>
+	
+	<script>
+		function divide()
+		{
+			var input = Number(document.getElementById("a").value);
+			var lst = [];
+			if (input <= 0)
+				{
+					alert("Wrong number!");
+					return;
+				}
+			for (var i = 1; i <= input; i++)
+				{
+					if (input % i == 0)
+						{
+							lst.push(i)
+						}
+				}
+			alert(lst);
+		}
+		
+	</script>
+	<a href="index.html">Назад</a>
+</body>
+</html>

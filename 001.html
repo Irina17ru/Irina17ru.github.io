@@ -1,0 +1,48 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<title>Задание 1</title>
+</head>
+
+<body>
+	<p>Составить программу, проверяющую, будут ли взаимно просты два натуральных(целых) числа.</p>
+	<form id="form1">
+		<input id="a" type="number">
+		<input id="b" type="number">
+		<br>
+		<button onclick="return nod()">OK</button>
+	</form>
+	
+	<script>
+		function nod()
+		{
+			var a = Number(document.getElementById("a").value);
+			var b = Number(document.getElementById("b").value);
+			if ((a <= 0)||(b <= 0))
+				{
+					alert("Wrong numbers!");
+					return;
+				}
+			while (a != b)
+				{
+					if (a > b)
+						{
+							a -= b;
+						}
+					else
+						{
+							b -= a;
+						}
+				}
+
+			var nod = a;
+			var res = (nod != 1) ? "not simple!": "simple";
+			alert(res);	
+		}
+		
+	</script>
+	<a href="index.html">Назад</a>
+</body>
+</html>

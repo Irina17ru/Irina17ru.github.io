@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<title>Задание 10</title>
+</head>
+	
+<body>
+	<p>Вычислить (N)!!, где (2N)!!      = 2*4*...*(2N), (2N+1)!!  = 1*3*...*(2N+1).</p>
+	<form id="form1">
+		<input id="a" type="number">
+		<button onclick="return fractal()">OK</button>
+	</form>
+	
+	<script>
+		function fractal()
+		{
+			var input = Number(document.getElementById("a").value);
+			var even;
+			var flag;
+			var output = 1;
+			var sign = 1;
+			
+			if ((!input))
+				{
+					alert("Insert data!");
+					return;
+				}
+			
+			if (input < 0)
+				{
+					sign = -1;
+					input *= sign;
+				}
+			
+			if (input % 2 == 0) {even = 0; flag = 2;}
+			else {even = 1; flag = 1;}
+			
+			for (i = flag; i <= (2*input)+even; i+=2)
+			{
+				output *= i*sign;
+			}
+			alert(output);
+		}
+		
+	</script>
+	<a href="index.html">Назад</a>
+</body>
+</html>
