@@ -53,8 +53,6 @@
 			{
 				//console.log(Object.entries(checker));
 				var output = [];
-				var outstring = "";
-				var count = 0;
 				
 				for (var i = 0; i < words.length; i++)
 					{
@@ -65,24 +63,12 @@
 										if ((words[i]) == checker[attr])
 											{
 												output.push(translater[attr]);
-												count++;
 											}
 									}
 							}
 					}
-				if (count == 4)
-					{
-						for (var i = 0; i < order.length; i++)
-							{
-								outstring += output[order[i]] + " ";
-							}
-					}
-				
-				else
-					{
-						outstring = output.join(" ");
-					}
-				return outstring;
+
+				return output.join(" ");
 			}
 			
 			dict = {'ru':{0:"привет", 1:"как" , 2:"тебя", 3:"зовут"}, 
