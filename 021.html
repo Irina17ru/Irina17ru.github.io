@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">	
+<title>Задание 6</title>
+</head>
+
+<body>
+	<p>Есть переменная, в которую через запятую перечислены сокращения дней недели. Преобразовав данную переменную в массив и используя перебор, добавьте к заданию №4 новое свойство объекта. Создайте метод вывода на экран сокращенного текущего дня недели.</p>
+	
+	<form id="form1">
+		<button onclick="reduced()">OK</button>
+	</form>
+	
+	<script>
+		function reduced()
+		{
+			var day;
+			var now;
+			var reduce;
+			day = {1:"понедельник", 2:"вторник", 3:"среда", 4:"четверг", 5:"пятница", 6:"суббота", 7:"воскресенье"};
+			now = (new Date).getDay();
+			
+			if (now == 0) { now = 7};
+			
+			reduce = "пн,вт,ср,чт,пт,сб,вс";
+			reduce = reduce.split(",");
+			
+			alert(reduce[now - 1]);
+		}
+	</script>
+	
+<a href="index.html">Назад</a>
+</body>
+</html>

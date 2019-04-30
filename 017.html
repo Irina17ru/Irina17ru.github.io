@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<title>Задание 2</title>
+</head>
+
+<body>
+	<p>Задан массив [9,8,7,6,5,4,3,2,1]. Создайте две копии данного массива разными способами и поменяйте в них порядок на обратный так же двумя способами. Выведите все три массива.</p>
+	
+	<form id="form1">
+		<button onclick="return array_copy()">OK</button>
+	</form>
+	
+	<script>
+		function array_copy()
+		{
+			var length;
+			var left;
+			var right;
+			
+			var input = [9,8,7,6,5,4,3,2,1];
+			var input_copy_1;
+			var input_copy_2;
+			
+			input_copy_1 = input.slice().reverse();
+			input_copy_2 = [...input];
+			
+			length = input_copy_2.length;
+			for (left = 0, right = length - 1; left < right; left += 1, right -= 1)
+			{
+				var temporary = input_copy_2[left];
+				input_copy_2[left] = input_copy_2[right];
+				input_copy_2[right] = temporary;
+			}
+			
+			alert(input_copy_1);
+			alert(input_copy_2);
+			alert(input);
+		}
+			
+	</script>
+	<a href="index.html">Назад</a>
+</body>
+</html>

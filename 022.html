@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">	
+<title>Задание 7</title>
+</head>
+
+<body>
+	<p> Создайте объект "предметы", со свойством, в котором через запятую перечислены предметы, преподаваемые в университете/школе(перечислите 2-6). Напишите к нему функцию, которая будет добавлять предмет, если его еще там нет. Используйте для этого преобразование в массив и свойства массивов split, join, push. 
+	Дополнение*: Удалите предмет, если он уже там есть с помощью свойства splice.</p>
+	
+	<form id="form1">
+		<button onclick="item()">OK</button>
+	</form>
+	
+	<script>
+		function item()
+		{
+			function add(obj, subj)
+			{
+				checker = (obj.subject).split(",");
+				
+				for (var i = 0; i < checker.length; i++)
+					{
+						if (subj == checker[i])
+							{
+								var index = i;
+								break;
+							}
+					}
+				
+				if (index) 
+				{
+					checker.splice(index, 1);
+				}
+				
+				else
+				{
+					checker.push(subj);
+				}
+				
+				obj.subject = checker.join();
+				return;
+			}
+			
+			var items;
+			items = {
+				subject: "philosophy,programming,computer graphic,physics"
+			}
+			
+			add(items,"biology");
+			add(items,"programming");
+			alert(items.subject);
+		}
+	</script>
+	
+<a href="index.html">Назад</a>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">	
+<title>Задание 5</title>
+</head>
+
+<body>
+	<p>Создайте объект "персонал", содержащий должности и имена. Скопируйте его в объект "персонал 2" и поменяйте в нем имена. Выведите оба объекта, предварительно преобразовав их в строку и используя знаки переноса строки. </p>
+	
+	<form id="form1">
+		<button onclick="personnel()">OK</button>
+	</form>
+	
+	<script>
+		function personnel()
+		{
+			function clone(obj) {
+				
+				var copy = obj.constructor();
+				for (var attr in obj) 
+				{
+					if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
+				}
+				return copy;
+			}
+			
+			function repr(obj) {
+				var output = "";
+				for (var attr in obj)
+					{
+						output += attr + "-" + obj[attr] + "\n";
+					}
+				return output;
+			}
+			
+			var staff_1;
+			var staff_2;
+			
+			staff_1 = {
+				"director": "Mike",
+				"manager": "John",
+				"artist": "Peter",
+				"programmer": "Anna"
+			}
+			
+			staff_2 = clone(staff_1);
+			staff_2["director"] = "Kim";
+			staff_2["manager"] = "Maria";
+			staff_2["artist"] = "Joseph";
+			staff_2["programmer"] = "Luke";
+			
+			alert(repr(staff_1) + "\n" + repr(staff_2));
+		
+		}
+	</script>
+	
+<a href="index.html">Назад</a>
+</body>
+</html>
