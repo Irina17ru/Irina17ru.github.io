@@ -11,27 +11,27 @@
 	<table>
 	<tr>
 		<td>
-		<input id="a" type="number">
+		<input id="a" type="number" value="2">
 		<br/>
-		<input id="b" type="number">
+		<input id="b" type="number" value="5">
 		</td>
 		
 		<td>
 		<select id="s" name ="select">
-			<option>+</option>
 			<option>-</option>
+			<option>+</option>
 		</select>
 		</td>
 		
 		<td>
-		<input id="c" type="number">
+		<input id="c" type="number" value="7">
 		<br/>
-		<input id="d" type="number">
+		<input id="d" type="number" value="8">
 		</td>
 	</tr>
 	</table>
 	<br>
-	<button onclick="return rational()">OK</button>
+	<input type="button" onclick="rational()" value = "OK">
 	</form>
 	
 	<script>
@@ -71,6 +71,7 @@
 			var bot_out;
 			var top_div;
 			var bot_div;
+			var flag = 1;
 			
 			if ((!(top_1)) || (!(top_2)) || (!(bot_1)) || (!(bot_2))||(bot_1 == 0)||(bot_2 == 0))
 			{
@@ -95,9 +96,12 @@
 					default:
 						break;
 				}
+			
+			if (top_out < 0) { flag = -1};
+
 			while (true)
 				{
-					top_div = div(top_out);
+					top_div = div(top_out * flag);
 					bot_div = div(bot_out);
 					nod = top_div.filter(value => -1 !== bot_div.indexOf(value));
 					if (nod.length == 0)
