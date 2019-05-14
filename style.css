@@ -32,6 +32,23 @@ form button:hover
 	border-color: #333;
 }
 
+form input type="button"
+{
+	border-style: solid;
+	width: 50px;
+	color:#000;
+	background-color: #47E260;
+	border-color: #47E260;
+	margin-top: 20px;
+}
+
+form input type="button":hover
+{
+	color: #fff;
+	background-color: #333;
+	border-color: #333;
+}
+
 form.another
 {
 	display: flex;
