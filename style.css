@@ -32,7 +32,7 @@ form button:hover
 	border-color: #333;
 }
 
-form input type="button"
+form.button
 {
 	border-style: solid;
 	width: 50px;
@@ -42,7 +42,7 @@ form input type="button"
 	margin-top: 20px;
 }
 
-form input type="button":hover
+form.button:hover
 {
 	color: #fff;
 	background-color: #333;
