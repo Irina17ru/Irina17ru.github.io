@@ -11,48 +11,62 @@
 	Дополнение*: Удалите предмет, если он уже там есть с помощью свойства splice.</p>
 	
 	<form id="form1">
-		<button onclick="item()">OK</button>
+		<input size="50" id="outer" readonly="true">
+		<br>
+		<input size="30" id="adder"><input type="button" onclick="item(true)" value="Add">
+		<br>
+		<input size="30" id="deleter"><input type="button" onclick="item(false)" value="Del">
 	</form>
 	
 	<script>
-		function item()
+		function item(flag)
 		{
-			function add(obj, subj)
+			function change(obj, subj, check)
 			{
+				var index = -1;
 				checker = (obj.subject).split(",");
 				
 				for (var i = 0; i < checker.length; i++)
 					{
 						if (subj == checker[i])
 							{
-								var index = i;
+								index = i;
 								break;
 							}
 					}
-				
-				if (index) 
+				if (index != -1) 
 				{
 					checker.splice(index, 1);
 				}
 				
 				else
 				{
-					checker.push(subj);
+					if (check){checker.push(subj)};
 				}
 				
 				obj.subject = checker.join();
 				return;
 			}
+			var new_word;
 			
-			var items;
-			items = {
-				subject: "philosophy,programming,computer graphic,physics"
+			if (flag)
+			{
+				new_word = String(document.getElementById("adder").value);
+				change(items,new_word,true);
+			}
+			else
+			{
+				new_word = String(document.getElementById("deleter").value);
+				change(items,new_word,false); 
 			}
 			
-			add(items,"biology");
-			add(items,"programming");
-			alert(items.subject);
+			outer.value = items.subject;
 		}
+		
+		var items = {subject: "example"};
+		var outer = document.getElementById("outer");
+		outer.value = items.subject;
+		
 	</script>
 	
 <a href="index.html">Назад</a>
