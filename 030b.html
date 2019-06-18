@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Задание 8</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+<style>
+	#table 
+	{
+		width: 40%;
+		margin: auto;
+		height: 400px;
+		outline: 12px solid darkcyan;
+	}
+	
+	#obj
+	{
+		margin: 0;
+		width: 32px;
+		height: 32px;
+		background-color: yellow;
+		position:absolute;
+		border-radius: 16px;
+		position: absolute;
+	}
+</style> 
+</head>
+
+<body>
+	<p>Реализовать скрипт, позволяющий перетаскивать мышью изображение. Пользователь пытается мышью перетащить изображение; затем он отпускает кнопку мыши и перемещает указатель в нужное место (при этом он может удерживать или не удерживать кнопку мыши в нажатом положении); остановившись в нужном месте, пользователь отпускает кнопку мыши или щелкает ею, чтобы прекратить перемещение изображения.</p>
+	<div id="table">
+		<div id="obj"></div>
+	</div>
+	<br>
+	<div id="test"></div>
+	
+	
+	<script>
+		
+		function movement(e)
+		{
+			initialize();
+			getPosition(e);
+			if (!(mouseX < borders.left) || (mouseX > borders.right) || (mouseY < borders.top) || (mouseY > borders.bottom))
+				{
+					if (move) {changePosition(mouseX, mouseY)};
+				}
+			
+		}
+		
+		function getPosition(e)
+		{
+			mouseX = e.x;
+			mouseY = e.y;
+		}
+		
+		function pickObject(){move = true};
+		
+		function dropObject(){move = false};
+		
+		function initialize()
+		{
+			borders = {top: (table.offsetTop + size),
+						  bottom: (table.offsetTop + table.offsetHeight - size),
+						  left: table.offsetLeft,
+						  right: (table.offsetLeft + table.offsetWidth - size)};
+		}
+		
+		function changePosition(x, y)
+		{
+			if ((x - size > borders.left) && (x < borders.right) && (y > borders.top) && (y < borders.bottom))
+				{
+					obj.style.left = (x - size) + "px";
+					obj.style.top = (y - size) + "px";
+				}
+		}
+			/*
+			if ((x > borders.left) && (x < borders.right) && (y > borders.top) && (y < borders.bottom))
+				{
+					return true;
+				}
+			return false;*/
+		
+		var mouseX;
+		var mouseY;
+		var timer;
+		var move = false;
+		var table = document.getElementById("table");
+		var obj = document.getElementById("obj");
+		
+		var size = obj.getBoundingClientRect().width/2;
+		
+		obj.style.left = table.offsetLeft + "px";
+		obj.style.top = table.offsetTop + "px";
+		//timer???
+		table.addEventListener("mousemove", movement, false);
+		obj.addEventListener("mousedown", pickObject, false);
+		document.addEventListener("mouseup", dropObject, false);
+		
+		
+		
+	</script>
+	
+	<a href="index.html">Назад</a>
+</body>
+</html>
