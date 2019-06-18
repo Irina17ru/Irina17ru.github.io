@@ -1,0 +1,207 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">	
+<title>Задание 3</title>
+</head>
+
+<body>
+	<p>Создать web-страницу калькулятор, производящий основные арифметические операции.</p>
+	<div id="calc" align="center"></div>
+<script>
+	function create_calc()
+		{
+			/*не работает СЕ если больше одного знака в примере. 1+2/3 не сработает
+			нет учета добавления нуля после точки для всех цифр (проверить надо ли)
+			не работает знак равно
+			не работает смена знака, не добавляет знак после смены с минуса*/
+			
+			func_list = {"CE": clear_after_sign, 
+						 "C":clear_all, "←": del, 
+						 "±": change_sign, 
+						 ".": add, 
+						 "=": evaluate,
+						"1": add, "2": add, "3": add,
+						"4": add, "5": add, "6": add,
+						"7": add, "8": add, "9": add,
+						"0": add, "+": add, "-": add, 
+						 "/": add, "*": add};
+			
+			for (var i = 0; i < all_btn.length; i++)
+			{
+				var table_row = table.insertRow(i+1);
+				for (var j = 0; j < all_btn[i].length; j++)
+					{
+						var table_cell = table_row.insertCell(j);
+						var btn = document.createElement("input");
+						btn.type = "button";
+						btn.id = all_btn[i][j];
+						btn.value = all_btn[i][j];
+						btn_list.push(btn);
+						table_cell.appendChild(btn);
+					}
+			}
+			
+			for (var i = 0; i < btn_list.length; i++)
+				{
+					//btn_list[i].onclick = func_list[btn_list[i].value];
+					btn_list[i].addEventListener("click", func_list[btn_list[i].value]);
+				}
+			
+			text_table_cell.colSpan = "4";
+			elem.appendChild(table);
+		}
+		
+		function refresh()
+		{
+			console.log(equation);
+		}
+		
+		function add()
+		{
+			var value = this.value;
+			if ((value in signs) && check_for_sign())
+				{
+					change_equation_sign(value);
+					return;
+				}
+			equation += value;
+			refresh();
+			return;
+		}
+		
+		function del()
+		{
+			equation = equation.substr(0, equation.length - 1);
+			refresh();
+			return;
+		}
+		
+		function change_sign()
+		{
+			var check = _sign_search();
+			if (check)
+				{
+					var last_equation_part = parseFloat(equation.substr(check))*-1;
+					var first_equation_part = equation.substr(0,check);
+					equation = first_equation_part + String(last_equation_part);
+				}
+			refresh();
+			return;
+		}
+		
+		function _sign_search()
+		{
+			var index_arr = [];
+			for (var i = 0; i < signs.length; i++)
+				{
+					if (equation.lastIndexOf(signs[i]) != -1)
+						{
+							index_arr.push(equation.lastIndexOf(signs[i]));
+						}
+				}
+			if (index_arr.length > 0) {var sign_index = Math.max(index_arr)};
+			if (sign_index) {return sign_index};
+		}
+		
+		function change_equation_sign()
+		{
+			var value = this.value;
+			del();
+			add(value);
+			return;
+		}
+		
+		function clear_after_sign()
+		{
+			var check = _sign_search();
+			if (check)
+				{
+					equation = equation.substr(0, check);
+				}
+			refresh();
+			return;
+		}
+		
+		function clear_all()
+		{
+			equation = "";
+			refresh();
+			return;
+		}
+		
+		function evaluate()
+		{
+			if (equation[0] in signs){equation = "1".concat(equation)};
+			if (equation[-1] === "."){equation = equation.concat("0")};
+			/*if (check_for_sign)
+			{
+				alert("Error");
+				return;
+			}*/
+			console.log(equation);
+			
+			var eval_arr = [];
+			var _num = "";
+			var result;
+			for (var i = 0; i < equation.length; i++)
+				{
+					if (equation[i] in signs)
+						{
+							eval_arr.push(_num);
+							eval_arr.push(equation[i]);
+							var _num = "";
+							continue;
+						}
+					_num += equation[i];
+					
+				}
+			
+			for (var i = 0; i < eval_arr.length-2; i++)
+				{
+					result += eval(eval_arr[i]+eval_arr[i+1]+eval_arr[i+2]);
+				}
+			return;
+		}
+		
+		function check_for_sign()
+		{
+			if (equation[-1] in signs)
+			{
+				return true;
+			}
+			else 
+			{
+				return false;
+			}
+		}
+		
+		var all_btn = [["CE", "C", "←", "/"], 
+					   ["7", "8", "9", "*"], 
+					   ["4", "5", "6", "-"],
+					   ["1", "2", "3", "+"],
+					   ["±", "0", ".", "="]]
+		
+		var signs = ["/","*","-","+"];
+		var btn_list = [];
+		var equation = "";
+		var elem = document.getElementById("calc");
+		
+		var table = document.createElement("table");
+		table.id = "table";
+		var text_table_row = table.insertRow(0);
+		var text_table_cell = text_table_row.insertCell(0);
+		text_table_cell.id = "span";
+		var text = document.createElement("input");
+		text.type = "text";
+		text.disabled = true;
+		text.id = "eq";
+		text_table_cell.appendChild(text);
+	
+		create_calc();
+</script>
+	
+<a href="index.html">Назад</a>
+</body>
+</html>

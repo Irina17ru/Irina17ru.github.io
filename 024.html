@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+ <style>
+	 table 
+	 {
+		 border-collapse: collapse;
+	 }
+	 
+	 td,th 
+	 {
+		 border: 1px solid black;
+		 padding: 5px;
+		 text-align: center;
+	 }
+	  
+</style>
+<link rel="stylesheet" type="text/css" href="style.css">
+<meta charset="utf-8">
+<title>Задание 2</title>
+</head>
+
+<body>
+	<p>Создать web-страницу, в которой отображается таблица умножения для чисел от 1 до 10.</p>
+	<div id="multi" align="center"></div>
+
+<script>
+	function multi_table(start, stop)
+	{
+		var elem = document.getElementById("multi");
+		var table = "<table><tr>";
+		var start = start;
+		var stop = stop;
+		
+		for (var i = start - 1; i< stop + 1; i++)
+		{
+			if (i >= start) {table += "<th>" + i + "</th>"}
+			else {table += "<th></th>"};
+		}
+		
+		for (var i = start; i < stop + 1; i++)
+		{
+			table += "<tr></tr>";
+			table += "<th>" + i + "</th>";
+			for (var j = start; j < stop + 1; j++)
+			{
+				table += "<td>" + i*j + "</td>";
+			}
+		}
+		
+		table += "</tr></table>";
+		elem.innerHTML = table;
+	}
+	
+	multi_table(1, 10);
+</script>
+	
+<a href="index.html">Назад</a>
+</body>
+
+</html>

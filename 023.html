@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+<style>
+	table 
+	{
+		border-collapse: collapse;
+	}
+	
+	td,th 
+	{
+		border: 1px solid black;
+		padding: 5px;
+		text-align: center;
+	}
+</style>
+<link rel="stylesheet" type="text/css" href="style.css">	
+<meta charset="utf-8">
+<title>Задание 1</title>
+</head>
+
+<body>
+	<p>Создать web-страницу, в которой отображается календарь на текущий месяц в виде таблицы.</p>
+	<div id="calendar" align="center"></div>
+	
+<script>
+	function calendar()
+	{
+		var elem = document.getElementById("calendar");
+		var date = new Date;
+		var month = date.getMonth();
+		var start_date = new Date(date.getFullYear(), month, 1);
+		var start_day = start_date.getDay();
+		var column_count = 0;
+		var days = ["пн", "вт", "ср", "чт", "пт", "сб", "вс"]
+		var table = "<table><tr>";
+		
+		if (start_day == 0) {start_day = 7;}
+		
+		for (var i = 0; i < days.length; i++)
+			{
+				table += "<th>" + days[i] + "</th>";
+			}
+		table += "</tr><tr>";
+
+		for (var i = 1; i < start_day; i++)
+		{
+			table += "<td></td>";
+			column_count++;
+		}
+		
+		while (start_date.getMonth() == month)
+		{
+			if (column_count == 7) 
+			{
+				column_count = 0;
+				table += "<tr></tr>";
+			}
+			table += "<td>" + start_date.getDate() + "</td>";
+			start_date.setDate(start_date.getDate()+1);
+			column_count++;
+		}
+		
+		while (column_count < 7)	{table += "<td></td>"; column_count++;}
+		
+		table += "</tr></table>";
+		elem.innerHTML = table;
+	}
+	
+	calendar();
+  </script>
+	
+<a href="index.html">Назад</a>
+</body>
+
+</html>

@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Задание 7</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+<style>
+	#table 
+	{
+		margin: auto;
+		width: 600px;
+		height: 600px;
+		outline: 12px solid darkcyan;
+	}
+	
+	#ball
+	{
+		margin: 0;
+		width: 32px;
+		height: 32px;
+		background-color: yellow;
+		border-radius: 16px;
+		position:absolute;
+	}
+</style> 
+</head>
+
+<body>
+	<p>Реализовать линейное движение. Оно реализуется 2-мя функциями. Первая функция осуществляет подготовку исходных данных и вызывает метод setInterval(), где в качестве второго параметра указывается вторая функция, реализующая движение.  В ней изменяются значения top и left стиля перемещаемого элемента.</p>
+	
+	<p>При сворачивании браузера улетает за границы таблицы, надо пофиксить.</p>
+
+	<div id="table" align="center">
+		<div id="ball"></div>
+	</div>
+	<br>
+	<form>
+		<input type="button" value="Начать" id="start">
+		<input type="button" value="Остановить" id="stop">
+	</form>
+	
+	<script>
+		var table = document.getElementById("table");
+		var ball = document.getElementById("ball");
+		var table_coord = table.getBoundingClientRect();
+		var ball_coord = ball.getBoundingClientRect();
+		var timer;
+		var min = 2;
+		var max = 10;
+		
+		var corX = ball_coord.width/4;
+		var corY = ball_coord.height/4;
+		var ballX  = table.offsetLeft + corX/4;
+		var ballY = table.offsetTop + corY/4;
+		ballX = Math.ceil(ballX);
+		ballY = Math.ceil(ballY);
+		ball.style.left = ballX+"px";
+		ball.style.top = ballY+"px";
+		
+		var velX = Math.round(Math.random() * (max - min) + min);
+		var velY = Math.round(Math.random() * (max - min) + min);
+		var borders = {top: Math.ceil(table_coord.top),
+					  bottom: Math.floor(table_coord.bottom),
+					  left: Math.ceil(table_coord.left),
+					  right: Math.floor(table_coord.right)};
+		
+		
+		function renew_coords()
+		{
+			table_coord = table.getBoundingClientRect();
+			borders = {top: Math.ceil(table_coord.top),
+					  bottom: Math.floor(table_coord.bottom),
+					  left: Math.ceil(table_coord.left),
+					  right: Math.floor(table_coord.right)};
+			if (borders.left + ballX < borders.right)
+				{
+					ballX  = borders.left + ballX;
+				}
+			else
+				{
+					ballX = borders.right - ball_coord.width;
+				}
+			
+			if (borders.top + ballY < borders.bottom)
+				{
+					ballY  = borders.top + ballY;
+				}
+			else
+				{
+					ballY = borders.bottom - ball_coord.height;
+				}
+		}
+		
+		function movement(ball, x, y, borders, vX, vY)
+		{
+			//renew_coords();
+			
+			if (x < (borders.left + corX/4))
+				{
+					x -= vX;
+					vX = -vX;
+				}
+			
+			if (x < (borders.right - 4*corX))
+				{
+					x += vX;
+					vX = -vX;
+				}
+			
+			if (y < (borders.top + corY))
+				{
+					y -= vY;
+					vY = -vY;
+				}
+			
+			if (y > (borders.bottom - 3*corY))
+				{
+					y += vY;
+					vY = -vY;
+				}
+			
+			x += vX;
+			y += vY;
+			
+			ballX = x;
+			ballY = y;
+			velX = vX;
+			velY = vY;
+			
+			ball.style.left = x +"px";
+			ball.style.top = y +"px";
+		}
+
+		document.getElementById("start").onclick = function(){setTimeout(clearInterval(timer));
+																timer = setInterval( function() {movement(ball, ballX, ballY, borders, velX, velY);}, 100);};
+		document.getElementById("stop").onclick = function(){setTimeout(clearInterval(timer),)};
+
+
+	</script>
+	
+	<a href="index.html">Назад</a>
+</body>
+</html>

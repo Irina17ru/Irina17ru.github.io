@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Задание 5</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+	<style>
+		div
+		{
+			
+			font-size: 14px;
+			transition: 0.1s;
+			vertical-align: middle;
+		}
+		
+		table
+		{
+			padding: 10px;
+			margin: 2% 35%;
+		}
+		
+		table td
+		{
+			border: 2px solid darkcyan;
+			padding: 10px;
+			height: 50px;
+			width: 100px;
+		}
+	</style>
+</head>
+
+<body>
+	<p>Создайте приложение, содержащее слова «Один», «Два», «Три». При наведении мыши на любое из слов, оно увеличивается в размерах, отображаясь на том же самом месте.</p>
+	<table>
+		<tr>
+			<td><div id="1" align="center"><span>Один</span></div>
+			</td>
+			<td><div id="2" align="center"><span>Два</span></div>
+			</td>
+			<td><div id="3" align="center"><span>Три</span></div>
+			</td>
+		</tr>
+	</table>
+	
+	<script>
+		function main(target)
+		{
+			target.onmouseover = function() {
+			target.style.fontSize = "40px";
+			}
+		
+			target.onmouseout = function() {
+				target.style.fontSize = "14px";
+			}
+		}
+		
+		var div1 = document.getElementById("1");
+		var div2 = document.getElementById("2");
+		var div3 = document.getElementById("3");
+		
+		main(div1);
+		main(div2);
+		main(div3);
+	</script>
+	
+	<a href="index.html">Назад</a>
+</body>
+	
+
+</html>
