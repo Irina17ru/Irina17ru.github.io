@@ -3,10 +3,131 @@
 <head>
 <meta charset="utf-8">
 <title>Задание 10</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="style.css">
+<style>
+	#field 
+	{
+		width: 500px;
+		height: 500px;
+		max-height: 500px;
+		overflow-y: scroll;
+		border-style: solid;
+		border-width: 10px;
+		padding: 5px;
+		margin: auto;
+		border-color: darkcyan;
+	}
+	
+	.found
+	{
+		background-color: darkcyan;
+	}
+
+</style> 
 </head>
 
 <body>
+	<p>Реализовать поиск в текстовой области. Внешне он выглядит как поле ввода поискового образа и кнопки, щелчок по которой запускает процедуру поиска. В простейшем варианте эта процедура прокручивает текст в окне так, чтобы найденный поисковый образ оказался видимым и выделенным. Если поиск оказался неудачным, то положение текста в окне остается неизменным и, возможно, появляется соответствующее сообщение. Указание. Для решения задачи можно воспользоваться объектом TextRange.</p>
+	<div id="field" align="center" contenteditable="true">
+			<p>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut dignissim interdum enim, sed volutpat ex. Etiam rhoncus vel nisi ut volutpat. In hac habitasse platea dictumst. Fusce et scelerisque justo, vel rhoncus risus. Aliquam urna orci, malesuada in volutpat vel, blandit eu erat. Nam rutrum vehicula consequat. Maecenas et tincidunt velit. Vivamus ut pulvinar felis. Pellentesque id finibus nulla. Aliquam at euismod purus, at semper diam. Etiam et fermentum orci, tincidunt dapibus enim. Mauris faucibus magna eu dui luctus suscipit. Vestibulum velit libero, cursus at purus a, pretium tempor sapien. Morbi congue efficitur nibh vel eleifend. Nunc et turpis ac sapien posuere pellentesque eu et sem. Ut arcu ex, tristique ac purus eu, placerat egestas orci.
+			</p><p>
+				Aliquam vitae nibh a diam varius lobortis. Ut faucibus pharetra volutpat. Maecenas mattis ex nisl, vel molestie ligula mattis in. Donec rhoncus a diam eget blandit. Praesent tempus vehicula cursus. Cras gravida justo velit, id euismod tellus cursus id. Cras vel lacus erat. Quisque volutpat ornare placerat. Nam arcu ipsum, rutrum a posuere nec, eleifend eget nibh. Maecenas eu lectus eget ligula gravida dictum et ut ex. Suspendisse elit turpis, posuere ut accumsan tincidunt, tincidunt vel ipsum. Vivamus eu erat ut erat faucibus fermentum ornare sit amet nibh. Phasellus non faucibus mi. Maecenas sodales orci eu venenatis iaculis. Morbi augue turpis, varius sit amet lacus quis, ullamcorper porttitor nunc.
+			</p><p>
+				Vivamus rutrum, mi sit amet pretium eleifend, ligula ipsum venenatis ipsum, id volutpat erat sapien ut sem. Fusce tincidunt at sapien id condimentum. Integer in diam luctus, elementum massa a, imperdiet nisl. Nulla non quam interdum, semper lectus vel, dictum magna. Aenean finibus maximus augue vel suscipit. Quisque laoreet tellus a pharetra tempus. Nulla leo mi, tempus eu risus nec, lacinia maximus justo. Nam fermentum metus quis tempus suscipit. Nam vulputate venenatis nisi non feugiat. Suspendisse posuere augue in orci feugiat facilisis.
+			</p><p>
+				Duis aliquam orci est, a efficitur odio luctus in. Fusce non eleifend massa. Nullam tortor mi, aliquam in eros ac, placerat eleifend diam. Praesent hendrerit massa ut arcu ultricies scelerisque. Ut ac molestie magna, vel porttitor tortor. Fusce porta porta nibh quis luctus. Donec non ligula nunc. Mauris non molestie justo, id tristique lacus. Mauris cursus tincidunt diam quis hendrerit. Praesent tincidunt nibh eget elementum suscipit. Phasellus eget dapibus sem. Nullam ultricies suscipit dui non porta. Pellentesque a ipsum a nibh sollicitudin suscipit.
+			</p><p>
+				Aenean mattis rutrum magna quis imperdiet. Suspendisse a ullamcorper nisl. Proin maximus urna eu justo consectetur rhoncus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis viverra tellus non urna malesuada, non tempor mauris cursus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Duis et turpis arcu. Sed pulvinar tellus non lorem vehicula, non tincidunt diam ultrices. Proin eu laoreet velit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla id dignissim orci.
+			</p><p>
+				Curabitur gravida euismod mattis. Donec a mi sit amet lectus posuere scelerisque. Aliquam ut faucibus massa. Sed iaculis vestibulum lorem vel ornare. Duis tristique metus eros, id vulputate velit pharetra sit amet. Nulla varius velit urna, in ornare nisi scelerisque et. Vivamus ultricies egestas congue. Nullam mattis purus et viverra fringilla. Mauris convallis tempus turpis et fermentum. In magna metus, sodales sed nisl eu, sagittis lobortis elit.
+			</p><p>
+				Cras aliquet mauris nulla, et molestie enim pretium molestie. Maecenas accumsan suscipit volutpat. Pellentesque dolor ex, consequat vel condimentum a, elementum ut nisl. Curabitur condimentum placerat massa, in luctus velit maximus in. Phasellus rhoncus ornare efficitur. Etiam sed arcu massa. Pellentesque efficitur aliquam lorem in porttitor. Aliquam scelerisque felis justo, eget blandit libero sodales maximus. Proin quis est orci. Phasellus accumsan, est quis consequat sagittis, ipsum magna lobortis dolor, et pellentesque leo mauris non lectus. Vestibulum dictum nisl arcu, quis ultrices nisi vulputate sodales. Quisque mollis, sem dictum vestibulum elementum, eros nisl euismod turpis, non suscipit nisl orci sit amet sem. In eget urna posuere, condimentum nunc a, sodales tortor. Ut sodales velit non aliquam lobortis. Donec sed scelerisque lorem, eget auctor ligula.
+			</p><p>
+				Sed accumsan tortor vel neque consequat, in lacinia ex accumsan. Aliquam erat orci, placerat id ipsum sed, bibendum lacinia elit. Aliquam ullamcorper, neque vel ullamcorper ultricies, nulla lectus ultrices ligula, sed elementum odio odio non tellus. Curabitur in velit ac ipsum laoreet elementum. Donec sollicitudin sed mi nec dignissim. Suspendisse rhoncus, neque vitae porttitor lacinia, velit metus bibendum tortor, ut gravida lacus massa ac justo. Donec et nisl urna. In aliquet tortor a leo molestie venenatis. Cras aliquet enim dui, at venenatis leo auctor eget.
+			</p>
+	</div>
+	<form>
+		<input type="text" placeholder="Введите слово" id="text">
+		<input type="button" value="Поиск" id="search">
+	</form>
+	
+	<script>
+		
+		//change all matches in a field with replace method?
+		function textSearch()
+		{
+			var text = document.getElementById("text").value;		//is not an object, undefined
+			var field = document.getElementById("field");
+			var count; 
+			
+			refresh(field, text);
+			
+			if (text)
+				{
+					field.innerHTML = (field.innerHTML).replace(new RegExp(text, "gi"), '<span class="found">'+text+'</span>');
+				}
+		}
+		
+		function refresh(field, text)
+		{
+			field.innerHTML = (field.innerHTML).replace(new RegExp("<span class='found'>", "gi"), "");
+			field.innerHTML = (field.innerHTML).replace(new RegExp("</span>", "gi"), "");
+		}
+		
+		var search = document.getElementById("search");
+		search.addEventListener("click", textSearch, false);
+		
+		
+	/*	var flist;
+	var count = -1;
+	function findMatches() {
+		count = -1;
+		var findtext = document.getElementById("findtext").value;
+		var re = new RegExp(`(${findtext})`, "gi");
+		inputText.innerHTML = (inputText.innerHTML).replace(/<span class="found".*?>(.*?)<\/span>/gi, '$1');
+		if(findtext) {
+			inputText.innerHTML = (inputText.innerHTML).replace(re, '<span class="found">$1</span>');
+		}
+		flist = document.getElementsByClassName("found");
+		numb.innerHTML = `0/${flist.length}`;
+	}
+
+	function goStep(step) {
+		flist[flist.length-1].style.backgroundColor = "yellow";
+		flist[0].style.backgroundColor = "yellow";
+		if(step>0) {
+			count<flist.length-1 ? ++count : count = 0;
+		} else {
+			count>0 ? --count : count = flist.length-1;
+		}
+		if(flist[count-step]) {
+			flist[count-step].style.backgroundColor = "yellow";
+		}
+		flist[count].style.backgroundColor = "orange";
+		flist[count].scrollIntoView();
+		if(inputText.scrollTop+inputText.offsetHeight+10<inputText.scrollHeight) {
+			inputText.scrollTop -= inputText.offsetHeight/2;
+		}
+		numb.innerHTML = `${count+1}/${flist.length}`;
+	}
+
+	
+	findtext.oninput = ()=>{findMatches();}
+
+	inputText.oninput = function(e) {
+		if(e.inputType == "insertFromPaste") {
+			inputText.innerHTML = inputText.innerHTML.replace(/<(?!\/?p(?=>|\s.*>))\/?.*?>/ig , "");
+			inputText.innerHTML = inputText.innerHTML.replace(/<p.*?>/ig , "<p>");
+			findMatches();
+		}
+	}
+
+	next.onclick = () => goStep(1);
+	prev.onclick = () => goStep(-1);*/
+		
+		
+	</script>
 	
 	<a href="index.html">Назад</a>
 </body>

@@ -1,0 +1,225 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Задание 9</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+	<p>Реализовать скрипт, позволяющий записать заданное число словами.</p>
+	<form>
+		<input type="number" placeholder="Введите число" id="num">
+		<input type="button" value="Конвертировать" id="btn">
+	</form>
+	
+	<script>
+		function main()
+		{
+				function converter()
+			{
+				checkMistakes();
+				if (num[0] == "-") {sign = true};
+				if (num.search(",") != -1) {num = num.split(",")};
+				if (num.search(".") != -1) {num = num.split(".")};
+
+				if (num.length > 1)
+					{
+						var int = num[0];
+						var frac = num[1];
+					}
+
+				else {var int = num[0]};
+				console.log(int);
+				var length = int.length;
+				console.log(length);
+				if (length > 3)
+					{
+						bigNumbers(length, int);
+					}
+				else { before = smallNumbers(int)};
+				alert (before + output + after);
+			}
+
+			function addEnd(str, size)
+			{
+				if (str.length > 1)
+					{
+						var second_checker = str[str.length - 2];
+					}
+				var checker = str[str.length - 1];
+				if (size == 4)
+					{
+						if (second_checker)
+									{
+										if (second_checker == 1) {return ""};
+									}
+
+						if (checker == 1) {return "а"};
+						if ((checker < 5) && (checker > 1)) {return "и"};
+						return "";
+					}
+
+				if (size > 4)
+					{
+						if (second_checker)
+									{
+										if (second_checker == 1) {return "ов"};
+									}
+						if (checker >= 5) {return "ов"};
+						if ((checker < 5) && (checker > 1)) {return "а"};
+						return "";
+					}
+
+				if (size == 1)
+					{
+						if (sign)
+							{
+								if (checker == 1) {return "на"};
+								if (checker == 2) {return "е"};
+							}
+
+						else
+							{
+								if (checker == 1) {return "ин"};
+								if (checker == 2) {return "а"};
+							}
+						return "";
+					}
+			}
+
+			function smallNumbers(range)
+			{
+				console.log("range", range);
+				console.log("range[0]", range[0]);
+				if (range.length == 3)
+					{
+						res += smallSearch(3, range[0]);
+						smallNumbers(range.substring(1,));
+					}
+
+				if (range.length == 2)
+					{
+						if (range[0] == 1)
+							{
+								res += smallSearch(11, range);
+							}
+						else
+							{
+								res += smallSearch(2, range[0]);
+								smallNumbers(range.substring(1,));
+							}
+					}
+				console.log("res", res);
+				if (range.length == 1){res += smallSearch(1, range)};
+				return res;
+			}
+
+			function smallSearch(index, finder)
+			{
+				for (var i in numbers[index])
+					{
+						console.log(i);
+						console.log(finder);
+						//////////////if do not work
+						console.log(i == Number(finder));
+						if (i == finder) 
+						{
+							return numbers[index][i];
+						}
+					}
+			}
+
+			function bigNumbers(length, int)
+			{
+				for (var i in numbers[4])
+					if (length > i)
+					{
+						var temp = numbers[4][i];
+						var div = i;
+					}
+					else {break};
+
+				output += temp;
+
+
+				var substr = int.substring(0,div - 2);
+				//////////////////////////////
+				console.log("substr", substr);
+
+				output += addEnd(substr, div);
+				//////////////////////////////
+				console.log("output", output);
+
+				int = int % (Math.pow(10, div - 1));
+				//////////////////////////////
+				console.log("int", int);
+
+				if (int != 0) 
+				{
+					if (int.length > 3) 
+					{
+						after = bigNumbers(int.toString().length, int.toString());
+					}
+					else 
+					{
+						after = smallNumbers(int.toString());
+						console.log("after", after);
+					}
+				}
+				before = smallNumbers(substr);
+			}
+
+
+			function checkMistakes()
+			{
+				var check_elem = [/\-/g, /\+/g, /\,/g, /\./g];
+				for (var i = 0; i < check_elem.length; i++)
+					{
+						if (countEntries(num, check_elem[i]) >= 2)
+							{
+								alert("Введите корректные данные");
+								return;
+							}
+					}
+
+				if (((num.search(check_elem[0]) != -1) && (num.indexOf(check_elem[0][2]) != 0)) || ((num.search(check_elem[1]) != -1) && (num.indexOf(check_elem[1][2]) != 0)))
+					{
+						alert("Введите корректные данные");
+						return;
+					}
+			}
+
+			function countEntries(str, src)
+			{
+				return str.length - str.replace(src, "").length;
+			}
+
+			var numbers = {1: {0: "ноль", 1: "од", 2: "дв", 3: "три", 4: "четыре", 5: "пять", 6: "шесть", 7: "семь", 8: "восемь", 					9: "девять"}, 
+						   11: {10: "десять", 11: "одиннадцать", 12: "двенадцать", 13: "тринадцать", 14: "четырнадцать", 15: "пятнадцать", 16: "шестнадцать", 17: "семнадцать", 18: "восемнадцать", 19:"девятнадцать"},
+						   2: {2: "двадцать", 3: "тридцать", 4: "сорок", 5: "пятьдесят", 6: "шестьдесят", 7: "семьдесят", 8: "восемьдесят", 9: "девяносто"},
+						   3: {1: "сто", 2: "двести", 3: "триста", 4: "четыреста", 5: "пятьсот", 6: "шестьсот", 7: "семьсот", 8: "восемьсот", 9: "девятьсот"},
+						   4: {4: "тысяч", 7: "миллион", 10: "миллиард", 13: "триллион", 16: "квадриллион", 19: "квинтильон", 22: "секстильон",25: "септильон", 28: "октальон", 31: "нональон", 34: "декальон"},
+						   0: {1: "десят", 2: "сот", 3: "тысячн", 4: "десятитысячн", 5: "стотысячн"}
+						  };
+
+			var sign = false;
+			var output = [];
+			var before = "";
+			var after = "";
+			var res = "";
+			var num = document.getElementById("num").value;
+			converter();
+		}
+		
+		var btn = document.getElementById("btn");
+		btn.onclick = main;
+		
+		
+		
+
+	</script>
+	
+	<a href="index.html">Назад</a>
+</body>
+</html>

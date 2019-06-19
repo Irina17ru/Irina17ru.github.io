@@ -9,7 +9,7 @@
 	{
 		width: 40%;
 		margin: auto;
-		height: 600px;
+		height: 400px;
 		outline: 12px solid darkcyan;
 	}
 	
@@ -21,8 +21,7 @@
 		background-color: yellow;
 		position:absolute;
 		border-radius: 16px;
-		top: 0px;
-		left: 0px;
+		position: absolute;
 	}
 </style> 
 </head>
@@ -33,58 +32,73 @@
 		<div id="obj"></div>
 	</div>
 	<br>
+	<div id="test"></div>
+	
 	
 	<script>
-		function changePosition(e)
+		
+		function movement(e)
+		{
+			initialize();
+			getPosition(e);
+			if (!(mouseX < borders.left) || (mouseX > borders.right) || (mouseY < borders.top) || (mouseY > borders.bottom))
+				{
+					if (move) {changePosition(mouseX, mouseY)};
+				}
+			
+		}
+		
+		function getPosition(e)
 		{
 			mouseX = e.x;
 			mouseY = e.y;
-			if (move)
-				{
-					if (borderChecker(mouseX, mouseY))
-						{
-							obj.style.left = (mouseX - size) + "px";
-							obj.style.top = (mouseY - size) + "px";
-						}	
-				}
-		}
-		
-		function borderChecker(x, y)
-		{
-			x += "px";
-			y += "px";
-			if ((x > borders.left) && (x < borders.right) && (y > borders.top) && (y < borders.bottom))
-				{
-					return true;
-				}
-			
-			/*if ((obj.style.left < borders.left) || (obj.style.left > borders.right) || (obj.style.top < borders.top) || (obj.style.top > borders.bottom))
-				{
-					return false;
-				}*/
-			return false;
 		}
 		
 		function pickObject(){move = true};
 		
 		function dropObject(){move = false};
 		
+		function initialize()
+		{
+			borders = {top: (table.offsetTop + size),
+						  bottom: (table.offsetTop + table.offsetHeight - size),
+						  left: table.offsetLeft,
+						  right: (table.offsetLeft + table.offsetWidth - size)};
+		}
+		
+		function changePosition(x, y)
+		{
+			if ((x - size > borders.left) && (x < borders.right) && (y > borders.top) && (y < borders.bottom))
+				{
+					obj.style.left = (x - size) + "px";
+					obj.style.top = (y - size) + "px";
+				}
+		}
+			/*
+			if ((x > borders.left) && (x < borders.right) && (y > borders.top) && (y < borders.bottom))
+				{
+					return true;
+				}
+			return false;*/
+		
 		var mouseX;
 		var mouseY;
+		var timer;
 		var move = false;
 		var table = document.getElementById("table");
 		var obj = document.getElementById("obj");
+		
 		var size = obj.getBoundingClientRect().width/2;
+		
 		obj.style.left = table.offsetLeft + "px";
 		obj.style.top = table.offsetTop + "px";
-		var borders = {top: (table.offsetTop + size) +"px",
-					  bottom: (table.offsetTop + table.offsetHeight - size) +"px",
-					  left: (table.offsetLeft + size) +"px",
-					  right: (table.offsetLeft + table.offsetWidth - size) +"px"};
-		
-		table.addEventListener("mousemove", changePosition, false);
+		//timer???
+		table.addEventListener("mousemove", movement, false);
 		obj.addEventListener("mousedown", pickObject, false);
-		obj.addEventListener("mouseup",dropObject, false);
+		document.addEventListener("mouseup", dropObject, false);
+		
+		
+		
 	</script>
 	
 	<a href="index.html">Назад</a>

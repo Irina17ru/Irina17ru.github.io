@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<link rel="stylesheet" type="text/css" href="style.css">	
+<link rel="stylesheet" type="text/css" href="style.css">
 <title>Задание 3</title>
 </head>
 
@@ -12,14 +12,12 @@
 <script>
 	function create_calc()
 		{
-			/*не работает СЕ если больше одного знака в примере. 1+2/3 не сработает
-			нет учета добавления нуля после точки для всех цифр (проверить надо ли)
-			не работает знак равно
-			не работает смена знака, не добавляет знак после смены с минуса*/
+			/*
+			не добавляет знак после смены с минуса*/
 			
 			func_list = {"CE": clear_after_sign, 
 						 "C":clear_all, "←": del, 
-						 "±": change_sign, 
+						 "": change_sign, 
 						 ".": add, 
 						 "=": evaluate,
 						"1": add, "2": add, "3": add,
@@ -27,7 +25,7 @@
 						"7": add, "8": add, "9": add,
 						"0": add, "+": add, "-": add, 
 						 "/": add, "*": add};
-			
+			//initialisation
 			for (var i = 0; i < all_btn.length; i++)
 			{
 				var table_row = table.insertRow(i+1);
@@ -36,8 +34,16 @@
 						var table_cell = table_row.insertCell(j);
 						var btn = document.createElement("input");
 						btn.type = "button";
+						btn.style.width = "30px";
+						btn.style.height = "30px";
+						btn.style.padding = "2px";
 						btn.id = all_btn[i][j];
 						btn.value = all_btn[i][j];
+						btn.style.backgroundColor = "silver";
+						btn.style.border = "none";
+						btn.style.borderRadius = "2px";
+						if (btn.value == "="){btn.style.backgroundColor = "darkcyan"};
+						if (btn.value == ""){btn.style.backgroundColor = "red"};
 						btn_list.push(btn);
 						table_cell.appendChild(btn);
 					}
@@ -52,43 +58,109 @@
 			text_table_cell.colSpan = "4";
 			elem.appendChild(table);
 		}
-		
+		//display result
 		function refresh()
 		{
-			console.log(equation);
+			txt_list[0].innerHTML = equation;
+			console.log("refresh", equation);
 		}
 		
+		//add new symbol
 		function add()
 		{
 			var value = this.value;
-			if ((value in signs) && check_for_sign())
+			
+			if (equation.length == 0)
 				{
-					change_equation_sign(value);
+					equation += value;
+					refresh();
 					return;
 				}
-			equation += value;
-			refresh();
-			return;
+			else
+				{
+					if ((signs.includes(value)) && check_for_sign())
+					{
+						change_equation_sign(value);
+						refresh();
+						return;
+					}
+					
+					equation += value;
+					refresh();
+				}
 		}
 		
+		//delete last symbol (arrow)
 		function del()
 		{
+			if (equation.length <2) {equation = ""};
 			equation = equation.substr(0, equation.length - 1);
 			refresh();
-			return;
 		}
+
+		function check_for_sign()
+			{
+				if (signs.includes(equation[equation.length - 1]))
+				{
+					return true;
+				}
+				else 
+				{
+					return false;
+				}
+			}
 		
+	
+		//+- button  Do I really need this?
 		function change_sign()
 		{
-			var check = _sign_search();
-			if (check)
+			if (document.body.style.backgroundColor != "white")
 				{
-					var last_equation_part = parseFloat(equation.substr(check))*-1;
+					for (var i = 0; i < btn_list.length; i++)
+						{
+							btn_list[i].style.color = "black";
+							btn_list[i].style.backgroundColor = "silver";
+							if (btn_list[i].value == "=")
+								{
+									btn_list[i].style.backgroundColor = "darkcyan";
+								}
+							if (btn_list[i].value == "")
+								{
+									btn_list[i].style.backgroundColor = "red";
+								}
+						}
+					txt_list[0].style.backgroundColor = "lightgrey";
+					txt_list[0].style.color = "black";
+					document.body.style.backgroundColor = "white";
+					return;
+				}
+			
+			for (var i = 0; i < btn_list.length; i++)
+						{
+							btn_list[i].style.color = "white";
+							btn_list[i].style.backgroundColor = "Salmon";
+							if (btn_list[i].value == "=")
+								{
+									btn_list[i].style.backgroundColor = "crimson";
+								}
+							if (btn_list[i].value == "")
+								{
+									btn_list[i].style.backgroundColor = "crimson";
+								}
+						}
+			txt_list[0].style.backgroundColor = "IndianRed";
+			txt_list[0].style.color = "white";
+			document.body.style.backgroundColor = "pink";
+			/*
+			var check = _sign_search();
+			if (typeof(check) == "number")
+				{
+					var last_equation_part = equation.substr(check+1,);
 					var first_equation_part = equation.substr(0,check);
 					equation = first_equation_part + String(last_equation_part);
 				}
 			refresh();
-			return;
+			return;*/
 		}
 		
 		function _sign_search()
@@ -101,22 +173,32 @@
 							index_arr.push(equation.lastIndexOf(signs[i]));
 						}
 				}
-			if (index_arr.length > 0) {var sign_index = Math.max(index_arr)};
+			if (index_arr.length > 0) 
+			{
+				var sign_index = 0;
+				for (var i = 0; i < index_arr.length; i++)
+					{
+						if (index_arr[i] > sign_index)
+							{
+								sign_index = index_arr[i];
+							}
+					}
+			}
 			if (sign_index) {return sign_index};
 		}
 		
-		function change_equation_sign()
+	//change sign if user inserted two signs in a row
+		function change_equation_sign(value)
 		{
-			var value = this.value;
-			del();
-			add(value);
+			equation = equation.substring(0, equation.length - 1) + value;
 			return;
 		}
-		
+			
+	//CE
 		function clear_after_sign()
 		{
 			var check = _sign_search();
-			if (check)
+			if (typeof(check) == "number")
 				{
 					equation = equation.substr(0, check);
 				}
@@ -124,6 +206,7 @@
 			return;
 		}
 		
+	//C
 		function clear_all()
 		{
 			equation = "";
@@ -131,23 +214,20 @@
 			return;
 		}
 		
+	//=
 		function evaluate()
 		{
-			if (equation[0] in signs){equation = "1".concat(equation)};
-			if (equation[-1] === "."){equation = equation.concat("0")};
-			/*if (check_for_sign)
-			{
-				alert("Error");
-				return;
-			}*/
-			console.log(equation);
+			if (signs.includes(equation[equation.length - 1]))
+				{
+					alert("Неправильный ввод");
+					return;
+				}
 			
 			var eval_arr = [];
 			var _num = "";
-			var result;
 			for (var i = 0; i < equation.length; i++)
 				{
-					if (equation[i] in signs)
+					if (signs.includes(equation[i]))
 						{
 							eval_arr.push(_num);
 							eval_arr.push(equation[i]);
@@ -155,36 +235,37 @@
 							continue;
 						}
 					_num += equation[i];
-					
 				}
+			eval_arr.push(_num);
 			
-			for (var i = 0; i < eval_arr.length-2; i++)
+			var result = eval_arr[0];
+			
+			for (var i = 1; i < eval_arr.length-1; i+=2)
 				{
-					result += eval(eval_arr[i]+eval_arr[i+1]+eval_arr[i+2]);
+					var temp = result;
+					try 
+					{
+						result = eval(temp + eval_arr[i]+eval_arr[i+1]);
+					}
+					catch (err) 
+					{
+						alert("Неправильный ввод! Ошибка: " + err);
+					}
 				}
-			return;
+			equation = result;
+			refresh();
 		}
 		
-		function check_for_sign()
-		{
-			if (equation[-1] in signs)
-			{
-				return true;
-			}
-			else 
-			{
-				return false;
-			}
-		}
 		
 		var all_btn = [["CE", "C", "←", "/"], 
 					   ["7", "8", "9", "*"], 
 					   ["4", "5", "6", "-"],
 					   ["1", "2", "3", "+"],
-					   ["±", "0", ".", "="]]
+					   ["", "0", ".", "="]]
 		
 		var signs = ["/","*","-","+"];
 		var btn_list = [];
+		var txt_list = [];
 		var equation = "";
 		var elem = document.getElementById("calc");
 		
@@ -193,13 +274,30 @@
 		var text_table_row = table.insertRow(0);
 		var text_table_cell = text_table_row.insertCell(0);
 		text_table_cell.id = "span";
+		var text = document.createElement("div");
+		text.id = "eq";
+		text.style.padding = "8px";
+		text.style.height = "16px";
+		text.style.textAlign = "right";
+		text.style.backgroundColor = "lightgrey";
+		text.style.borderRadius = "2px";
+		text_table_cell.appendChild(text);
+		txt_list.push(text);
+		create_calc();
+	
+	/*
+	var table = document.createElement("table");
+		table.id = "table";
+		var text_table_row = table.insertRow(0);
+		var text_table_cell = text_table_row.insertCell(0);
+		text_table_cell.id = "span";
 		var text = document.createElement("input");
 		text.type = "text";
 		text.disabled = true;
 		text.id = "eq";
-		text_table_cell.appendChild(text);
+		text_table_cell.appendChild(text);*/
 	
-		create_calc();
+
 </script>
 	
 <a href="index.html">Назад</a>
