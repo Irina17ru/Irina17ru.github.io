@@ -44,7 +44,7 @@
 		var ball_coord = ball.getBoundingClientRect();
 		var timer;
 		var min = 2;
-		var max = 10;
+		var max = 8;
 		
 		//var corX = ball_coord.width/4;
 		//var corY = ball_coord.height/4;
@@ -68,9 +68,9 @@
 		{
 			//perfect!
 			borders = {top: (table.offsetTop + size/4),
-						  bottom: (table.offsetTop + table.offsetHeight - 2*size - size/4),
+						  bottom: (table.offsetTop + table.offsetHeight - 2*size - size/2),
 						  left: (table.offsetLeft + size/4),
-						  right: (table.offsetLeft + table.offsetWidth - 2*size - size/4)};
+						  right: (table.offsetLeft + table.offsetWidth - 2*size - size/2)};
 		}
 		
 		function movement(ball, x, y, borders, vX, vY)
