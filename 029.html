@@ -8,8 +8,8 @@
 	#table 
 	{
 		margin: auto;
-		width: 600px;
-		height: 600px;
+		width: 400px;
+		height: 400px;
 		outline: 12px solid darkcyan;
 	}
 	
@@ -27,7 +27,7 @@
 
 <body>
 	<p>Реализовать линейное движение. Оно реализуется 2-мя функциями. Первая функция осуществляет подготовку исходных данных и вызывает метод setInterval(), где в качестве второго параметра указывается вторая функция, реализующая движение.  В ней изменяются значения top и left стиля перемещаемого элемента.</p>
-	
+	<br>
 	<div id="table" align="center">
 		<div id="ball"></div>
 	</div>
@@ -46,85 +46,46 @@
 		var min = 2;
 		var max = 10;
 		
-		var corX = ball_coord.width/4;
-		var corY = ball_coord.height/4;
-		var ballX  = table.offsetLeft + corX/4;
-		var ballY = table.offsetTop + corY/4;
-		ballX = Math.ceil(ballX);
-		ballY = Math.ceil(ballY);
+		//var corX = ball_coord.width/4;
+		//var corY = ball_coord.height/4;
+		
+		var size = ball_coord.width/2;
+		
+		var ballX  = table.offsetLeft;
+		var ballY = table.offsetTop;
 		ball.style.left = ballX+"px";
 		ball.style.top = ballY+"px";
 		
 		var velX = Math.round(Math.random() * (max - min) + min);
 		var velY = Math.round(Math.random() * (max - min) + min);
-		var borders = {top: Math.ceil(table_coord.top),
-					  bottom: Math.floor(table_coord.bottom),
-					  left: Math.ceil(table_coord.left),
-					  right: Math.floor(table_coord.right)};
 		
+		var borders = {top: (table.offsetTop),
+						  bottom: (table.offsetTop + table.offsetHeight - 2*size),
+						  left: table.offsetLeft,
+						  right: (table.offsetLeft + table.offsetWidth - 2*size)};
 		
 		function renew_coords()
 		{
-			table_coord = table.getBoundingClientRect();
-			borders = {top: Math.ceil(table_coord.top),
-					  bottom: Math.floor(table_coord.bottom),
-					  left: Math.ceil(table_coord.left),
-					  right: Math.floor(table_coord.right)};
-			if (borders.left + ballX < borders.right)
-				{
-					ballX  = borders.left + ballX;
-				}
-			else
-				{
-					ballX = borders.right - ball_coord.width;
-				}
-			
-			if (borders.top + ballY < borders.bottom)
-				{
-					ballY  = borders.top + ballY;
-				}
-			else
-				{
-					ballY = borders.bottom - ball_coord.height;
-				}
+			//perfect!
+			borders = {top: (table.offsetTop + size/4),
+						  bottom: (table.offsetTop + table.offsetHeight - 2*size - size/4),
+						  left: (table.offsetLeft + size/4),
+						  right: (table.offsetLeft + table.offsetWidth - 2*size - size/4)};
 		}
 		
 		function movement(ball, x, y, borders, vX, vY)
 		{
-			//renew_coords();
-			
-			if (x < (borders.left + corX/4))
-				{
-					x -= vX;
-					vX = -vX;
-				}
-			
-			if (x < (borders.right - 4*corX))
-				{
-					x += vX;
-					vX = -vX;
-				}
-			
-			if (y < (borders.top + corY))
-				{
-					y -= vY;
-					vY = -vY;
-				}
-			
-			if (y > (borders.bottom - 3*corY))
-				{
-					y += vY;
-					vY = -vY;
-				}
-			
+			renew_coords()
+
+			if (x < borders.left || x  > borders.right) {vX = vX*(-1)};
+			if (y  < borders.top || y  > borders.bottom) {vY = vY*(-1)};
 			x += vX;
 			y += vY;
-			
 			ballX = x;
 			ballY = y;
 			velX = vX;
 			velY = vY;
-			
+
 			ball.style.left = x +"px";
 			ball.style.top = y +"px";
 		}
