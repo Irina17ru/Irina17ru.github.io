@@ -78,55 +78,6 @@
 		var search = document.getElementById("search");
 		search.addEventListener("click", textSearch, false);
 		
-		
-	/*	var flist;
-	var count = -1;
-	function findMatches() {
-		count = -1;
-		var findtext = document.getElementById("findtext").value;
-		var re = new RegExp(`(${findtext})`, "gi");
-		inputText.innerHTML = (inputText.innerHTML).replace(/<span class="found".*?>(.*?)<\/span>/gi, '$1');
-		if(findtext) {
-			inputText.innerHTML = (inputText.innerHTML).replace(re, '<span class="found">$1</span>');
-		}
-		flist = document.getElementsByClassName("found");
-		numb.innerHTML = `0/${flist.length}`;
-	}
-
-	function goStep(step) {
-		flist[flist.length-1].style.backgroundColor = "yellow";
-		flist[0].style.backgroundColor = "yellow";
-		if(step>0) {
-			count<flist.length-1 ? ++count : count = 0;
-		} else {
-			count>0 ? --count : count = flist.length-1;
-		}
-		if(flist[count-step]) {
-			flist[count-step].style.backgroundColor = "yellow";
-		}
-		flist[count].style.backgroundColor = "orange";
-		flist[count].scrollIntoView();
-		if(inputText.scrollTop+inputText.offsetHeight+10<inputText.scrollHeight) {
-			inputText.scrollTop -= inputText.offsetHeight/2;
-		}
-		numb.innerHTML = `${count+1}/${flist.length}`;
-	}
-
-	
-	findtext.oninput = ()=>{findMatches();}
-
-	inputText.oninput = function(e) {
-		if(e.inputType == "insertFromPaste") {
-			inputText.innerHTML = inputText.innerHTML.replace(/<(?!\/?p(?=>|\s.*>))\/?.*?>/ig , "");
-			inputText.innerHTML = inputText.innerHTML.replace(/<p.*?>/ig , "<p>");
-			findMatches();
-		}
-	}
-
-	next.onclick = () => goStep(1);
-	prev.onclick = () => goStep(-1);*/
-		
-		
 	</script>
 	
 	<a href="index.html">Назад</a>
